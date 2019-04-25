@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cY8-Lm-k1Y">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Trolldrop-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Trolldrop" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Okx-A9-LZf">
+                                <rect key="frame" x="16" y="133" width="172" height="170"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Yjp-VT-hMA" appends="YES" id="2z5-ye-UJI"/>
+                                </connections>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u8e-Ln-q3n">
+                                <rect key="frame" x="270" y="203" width="89" height="30"/>
+                                <state key="normal" title="Select Image"/>
+                                <connections>
+                                    <action selector="selectImageTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CaH-vM-Ro2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2wZ-aA-kLn">
+                                <rect key="frame" x="112" y="318" width="150" height="30"/>
+                                <state key="normal" title="Start Trolling"/>
+                                <connections>
+                                    <action selector="startTroll:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g3N-nq-UJS"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QKt-Gr-dVh">
+                                <rect key="frame" x="0.0" y="382" width="375" height="285"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="top" secondItem="2wZ-aA-kLn" secondAttribute="bottom" constant="34" id="1eJ-FI-EDh"/>
+                            <constraint firstItem="u8e-Ln-q3n" firstAttribute="leading" secondItem="Okx-A9-LZf" secondAttribute="trailing" constant="82" id="4IG-rm-J6v"/>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="centerX" secondItem="2wZ-aA-kLn" secondAttribute="centerX" id="7pj-Fe-Myp"/>
+                            <constraint firstItem="Okx-A9-LZf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="17" id="9yz-Es-pBV"/>
+                            <constraint firstItem="2wZ-aA-kLn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="112" id="Anj-zu-q9s"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="u8e-Ln-q3n" secondAttribute="trailing" constant="16" id="JYf-lO-fwO"/>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="MvG-rc-AQY"/>
+                            <constraint firstItem="2wZ-aA-kLn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PvQ-SQ-LrQ"/>
+                            <constraint firstItem="u8e-Ln-q3n" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="87" id="Rhl-lK-vk9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Okx-A9-LZf" secondAttribute="bottom" constant="364" id="TUR-wM-GeT"/>
+                            <constraint firstItem="2wZ-aA-kLn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="UY9-Rk-qGV"/>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Usz-DC-EnG"/>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Uvc-tL-fWY"/>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="XCh-r7-oCq"/>
+                            <constraint firstItem="Okx-A9-LZf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="XcS-u2-dKu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="u8e-Ln-q3n" secondAttribute="bottom" constant="434" id="a1s-qW-Hbw"/>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="hFm-YY-NVJ"/>
+                            <constraint firstItem="u8e-Ln-q3n" firstAttribute="leading" secondItem="Okx-A9-LZf" secondAttribute="trailing" constant="82" id="rfs-vm-kxA"/>
+                            <constraint firstItem="QKt-Gr-dVh" firstAttribute="top" secondItem="2wZ-aA-kLn" secondAttribute="bottom" constant="34" id="w0t-SO-MTQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Trolldrop" id="I55-ev-SfN"/>
+                    <connections>
+                        <outlet property="imageView" destination="Okx-A9-LZf" id="G2O-YX-USs"/>
+                        <outlet property="selectButton" destination="u8e-Ln-q3n" id="MO1-Eb-Tcl"/>
+                        <outlet property="tableView" destination="QKt-Gr-dVh" id="fhL-jZ-Fdj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Yjp-VT-hMA">
+                    <connections>
+                        <action selector="imageTapped:" destination="BYZ-38-t0r" id="DoX-Jj-9Oy"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1055.2" y="118.29085457271366"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="icp-iA-Uge">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cY8-Lm-k1Y" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="0NE-qB-QuY">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="jso-Dw-6cw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Gj-Ks-R3b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="777.66116941529242"/>
+        </scene>
+    </scenes>
+</document>
