@@ -14,13 +14,51 @@ extension UIButton {
     }
 }
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+extension String  {
+    var isNumber: Bool {
+        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
+}
+
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource{
     
+    @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var selectButton: UIButton!
     let imagePicker = UIImagePickerController();
     var pathForImage: URL!
+    var rechargeTime: TimeInterval = 3
+    var output: [String] = [String]()
+    let cellReuseIdentifier = "cell"
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        imagePicker.delegate = self
+        self.textField.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        //setup tableView cell
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        //init toolbar
+        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+        
+        //create left side empty space so that done button set on right side
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+        
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        
+        //setting toolbar as inputAccessoryView
+        self.textField.inputAccessoryView = toolbar
+        // Do any additional setup after loading the view, typically from a nib.
+        
+    }
+    
+    @objc func doneButtonAction() {
+        self.view.endEditing(true)
+    }
     
     //Get Image
     @IBAction func selectImageTapped(_ sender: UIButton) {
@@ -41,8 +79,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             present(alert, animated: true, completion: nil);
         }else{
             NSLog("trollDrop STARTINGTROLL")
-            let trollController = TrollController(sharedURL: pathForImage, rechargeDuration: 3) { (message) in
-                NSLog("trollDrop Hello \(message)");
+            let trollController = TrollController(sharedURL: pathForImage, rechargeDuration: rechargeTime) { (message) in
+                //self.output.append(message[0] as String)
+                self.output.insert(message[0] as String, at: 0)
+                self.tableView.beginUpdates()
+                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                self.tableView.endUpdates()
             }
             trollController.start()
             
@@ -50,11 +92,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             RunLoop.main.run()
             
         }
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        imagePicker.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
     }
     //Full Screen when image is tapped
     @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
@@ -115,6 +152,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
+    //UITextView
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if(textField.text?.isEmpty)!{
+            rechargeTime = 3
+        }else{
+            rechargeTime = Double(textField.text!)!
+        }
+        return true
+    }
+    
+    //TableView
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       return self.output.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = (self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell?)!
+        
+        // set the text from the data model
+        cell.textLabel?.text = self.output[indexPath.row]
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You tapped cell number \(indexPath.row).")
+    }
+    
+    
 
 }
 

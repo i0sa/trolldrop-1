@@ -57,10 +57,13 @@ public class TrollController {
 
     /// A block handler that allows customization of the shared file for certain people.
     public var sharedURLOverrideHandler: (Person) -> URL?
+    //("trolling dispName: \(dispName ?? ("" as CFString)) compName: \(compName ?? ("" as CFString)) realName: \(realName ?? ("" as CFString))");
+    private var log: ([CFString]) -> Void
+    /*private var displayName: (String) -> Void
+    private var compName: (String) -> Void
+    private var realName: (String) -> Void*/
 
-    private var log: (String) -> Void
-
-    public init(sharedURL: URL, rechargeDuration: TimeInterval, logger: @escaping (String) -> Void) {
+    public init(sharedURL: URL, rechargeDuration: TimeInterval, logger: @escaping ([CFString]) -> Void) {
         TDKInitialize()
         people = []
         trollings = [:]
@@ -116,7 +119,8 @@ public class TrollController {
         let dispName = TDKSFNodeCopyDisplayName(node);
         let compName = TDKSFNodeCopyComputerName(node);
         let realName = TDKSFNodeCopySecondaryName(node);
-        self.log("trolling dispName: \(dispName ?? ("" as CFString)) compName: \(compName ?? ("" as CFString)) realName: \(realName ?? ("" as CFString))");
+        self.log([dispName ?? ("" as CFString), compName ?? ("" as CFString), realName ?? ("" as CFString)]);
+        //self.log
         let fileIcon: CGImage?
         let fileURL: URL
         if let fileURLOverride = sharedURLOverrideHandler(Person(node: node)) {
