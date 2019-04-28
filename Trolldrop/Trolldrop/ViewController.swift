@@ -70,12 +70,13 @@ class CoolDownPickerCell : UITableViewCell, UIPickerViewDelegate, UIPickerViewDa
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource{
     
     
+    @IBOutlet weak var stopButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectButton: UIButton!
     let imagePicker = UIImagePickerController();
     var pathForImage: URL!
     var output: [String] = [String]()
-    
+    var shouldRun = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         tableView.dataSource = self
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Target")
         imagePicker.delegate = self
+        stopButton.isEnabled = false
         
     }
     
@@ -104,27 +106,39 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil);
         }else{
+            shouldRun = true
+            stopButton.isEnabled = true
             NSLog("trollDrop STARTINGTROLL")
             let indexPath = IndexPath(row: 0, section: 1)
             let cell = tableView.cellForRow(at: indexPath) as! CoolDownPickerCell
-            let coolDown = cell.picker.selectedRow(inComponent: 0)
-            NSLog(String(coolDown));
-            let trollController = TrollController(sharedURL: pathForImage, rechargeDuration: TimeInterval(coolDown)) { (message) in
+            var coolDown:Int? = cell.picker.selectedRow(inComponent: 0)
+            if(coolDown == nil){
+                coolDown = 0;
+            }
+            let trollController = TrollController(sharedURL: pathForImage, rechargeDuration: TimeInterval(coolDown!)) { (message) in
                 //self.output.append(message[0] as String)
                 self.output.insert(message[0] as String, at: 0)
                 self.tableView.beginUpdates()
-                self.tableView.insertRows(at: [IndexPath(row: 0, section: 2)], with: .automatic)
+                self.tableView.insertRows(at: [IndexPath(row: 0, section: 2)], with: .none)
                 self.tableView.endUpdates()
                 
             }
             trollController.start()
             
+            let runLoop = RunLoop.current
+            while(shouldRun){
+                runLoop.run(mode: .defaultRunLoopMode, before: .distantFuture)
+            }
             
-            RunLoop.main.run()
+            //RunLoop.current.run()
             
         }
     }
     
+    @IBAction func stopButton(_ sender: UIBarButtonItem) {
+        shouldRun = false
+        sender.isEnabled = false
+    }
     @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
         
         UIView.transition(with: self.view, duration: 0.25, options: [.transitionCrossDissolve], animations: {
@@ -213,6 +227,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             cell.picker.delegate = cell
             cell.picker.dataSource = cell
             if(cell.pickerData.isEmpty){
+                cell.picker.selectRow(0, inComponent: 0, animated: false)
                 for number in 0...60{
                     if(number == 1){
                         cell.pickerData.append("\(String(number)) Second" )

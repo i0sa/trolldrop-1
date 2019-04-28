@@ -101,6 +101,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTp-db-wcK">
                                 <rect key="frame" x="16" y="597" width="343" height="62"/>
                                 <color key="backgroundColor" red="0.0" green="0.47789943218231201" blue="0.99969476461410522" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="62" id="f2R-Ho-xET"/>
+                                </constraints>
                                 <state key="normal" title="Start Trolling"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -133,12 +136,13 @@
                     <navigationItem key="navigationItem" title="Trolldrop" id="I55-ev-SfN">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="PRO-82-q7g">
                             <connections>
-                                <action selector="stopButtonPressed:" destination="BYZ-38-t0r" id="uD8-7K-ryJ"/>
+                                <action selector="stopButton:" destination="BYZ-38-t0r" id="rPt-L7-8xl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="selectButton" destination="kTp-db-wcK" id="HDJ-yG-1uU"/>
+                        <outlet property="stopButton" destination="PRO-82-q7g" id="gGT-QO-S3L"/>
                         <outlet property="tableView" destination="6Yo-zJ-eb8" id="EiE-mh-p7k"/>
                     </connections>
                 </viewController>
